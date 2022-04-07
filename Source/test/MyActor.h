@@ -31,4 +31,7 @@ private:
 	int32 Hp;
 	UPROPERTY(EditDefaultsOnly, Category = stat) //reflection 
 	int32 Mp;
+
+	UPROPERTY(EditDefaultsOnly, Category = stat) //reflection 
+	float RotateSpeed = 30.f;
 };

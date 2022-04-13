@@ -2,6 +2,8 @@
 
 
 #include "MyAnimInstance.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
@@ -11,5 +13,11 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	if (IsValid(pawn))
 	{
 		Speed = pawn->GetVelocity().Size();
+		auto Character = Cast<ACharacter>(pawn);
+		if (Character)
+		{
+			IsFalling = Character->GetMovementComponent()->IsFalling();
+			//attackmouse = Character->GetMovementComponent()->
+		}
 	}
 }

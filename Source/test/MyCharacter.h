@@ -25,23 +25,12 @@ public:
 
 	// Called to bind functionality to input
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override
-	{
-		Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-		PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
-		PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
-		PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::UpDown);
-		PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::LeftRight);
-		PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyCharacter::Yaw);
-
-	}
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void UpDown(float Value);
 	void LeftRight(float Value);
 	void Yaw(float Value);
 	void Attack();
-	void Jump();
 
 private :
 	UPROPERTY(VisibleAnywhere) //reflection 

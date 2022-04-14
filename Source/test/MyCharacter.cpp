@@ -6,7 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
-
+#include "MyAnimInstance.h"
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
@@ -31,6 +31,20 @@ AMyCharacter::AMyCharacter()
 	{
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
+
+
+}
+
+void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AMyCharacter::Attack);
+	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::UpDown);
+	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::LeftRight);
+	PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyCharacter::Yaw);
+
 }
 
 // Called when the game starts or when spawned
@@ -75,11 +89,9 @@ void AMyCharacter::Yaw(float Value)
 
 void AMyCharacter::Attack()
 {
-	Jump();
-}
-void AMyCharacter::Jump()
-{
-	bPressedJump = true;
-	JumpKeyHoldTime = 0.0f;
-	JumpMaxCount = 1000;
+	auto AnimInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+	if (AnimInstance)
+	{
+		AnimInstance->PlayAttackMontage();
+	}
 }
